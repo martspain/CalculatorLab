@@ -11,6 +11,9 @@ const Button = (props) => {
         if(screen.value.length < 9){
             screen.value = screen.value + character;
         }
+        else{
+            alert('La cantidad máxima de caracteres es 9.');
+        }
     }
 
     return(

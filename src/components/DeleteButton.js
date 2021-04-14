@@ -12,7 +12,7 @@ const DeleteButton = (props) =>{
     }
 
     return(
-        <Button className="m-1" variant="outline-primary" size="lg" onClick={deleteLastChar}>{character}</Button>
+        <Button className="m-1" variant="outline-secondary" size="lg" onClick={deleteLastChar}>{character}</Button>
     )
 }
 

@@ -3,7 +3,7 @@ import BootNavBar from 'react-bootstrap/Navbar'
 
 const NavBar = () =>{
     return(
-        <BootNavBar bg="dark" variant="dark">
+        <BootNavBar className="justify-content-center" bg="dark" variant="dark">
             <BootNavBar.Brand>Calculadora Online</BootNavBar.Brand>
         </BootNavBar>
     )

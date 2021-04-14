@@ -4,55 +4,30 @@ import Display from './Display';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DeleteButton from './DeleteButton';
 import DotButton from './DotButton';
-import AddButton from './AddButton';
-import { readyException } from 'jquery';
+import OperButton from './OperButton';
+import ACButton from './ACButton';
+import PlusMinusButton from './PlusMinusButton';
+import ANSButton from './ANSButton';
 
 const Calculator = () =>{
 
     const [firstValue, setFirstValue] = useState(0);
-    const [secondValue, setSecondValue] = useState(0);
     const [operation, setOperation] = useState(0);
     const [result, setResult] = useState(0);
     const [negativeHandle, setNegativeHandle] = useState(false);
 
-    const setFirst = (firstNumber) =>{
-        setFirstValue(firstNumber);
-        console.log(firstValue);
-    }
-
-    const setSecond = (secondNumber) =>{
-        setSecondValue(secondNumber);
-    }
-
-    const sum = () =>{
-        setResult(firstValue + secondValue);
-        updateDisplay();
-    }
-
-    const sub = () =>{
-        setResult(firstValue - secondValue);
-    }
-
-    const divide = () =>{
-        setResult(firstValue / secondValue);
-    }
-
-    const mul = () =>{
-        setResult(firstValue * secondValue);
-    }
-
-    const updateDisplay = () =>{
-        document.getElementById("display").value = result;
-        console.log(result);
-    }
-
     const execute = () =>{
         if(operation === 0){
-            console.log(`No se realizó ninguna operación sobre ${firstValue} y ${secondValue}`);
             if(firstValue === 0){
                 try{
-                    setFirstValue(parseFloat(document.getElementById("display").value));
-                    document.getElementById("display").value = "";
+                    if(!isNaN(parseFloat(document.getElementById("display").value))){
+                        setFirstValue(parseFloat(document.getElementById("display").value));
+                        document.getElementById("display").value = "";
+                    }
+                    else{
+                        setOperation(0);
+                        alert('Debe ingresar un número válido.');
+                    }
                 }
                 catch(error){
                     console.log(error);
@@ -69,19 +44,74 @@ const Calculator = () =>{
                     setFirstValue(newRes);
                     document.getElementById("display").value = newRes;
                 }
+                else{
+                    alert('Debe ingresar un valor válido.');
+                }
             }
             catch(error){
                 console.log(error);
             }
         }
         else if(operation === 2){
-            console.log(`Se realiza la resta sobre ${firstValue} y ${secondValue}`);
+            try{
+                console.log(`Se realiza la resta sobre ${firstValue} y ${document.getElementById("display").value}`);
+                let newRes = firstValue - parseFloat(document.getElementById("display").value);
+                if(!isNaN(newRes)){
+                    setResult(newRes);
+                    setFirstValue(newRes);
+                    if(newRes < 0){
+                        if(negativeHandle){
+                            document.getElementById("display").value = newRes;
+                        }
+                        else{
+                            document.getElementById("display").value = 'ERROR';
+                        }
+                    }
+                    else{
+                        document.getElementById("display").value = newRes;
+                    }
+                }
+                else{
+                    alert('Debe ingresar un valor válido.');
+                }
+            }
+            catch(error){
+                console.log(error);
+            }
         }
         else if(operation === 3){
-            console.log(`Se realiza la multiplicacion sobre ${firstValue} y ${secondValue}`);
+            try{
+                console.log(`Se realiza la multiplicacion sobre ${firstValue} y ${document.getElementById("display").value}`);
+                let newRes = firstValue * parseFloat(document.getElementById("display").value);
+                if(!isNaN(newRes)){
+                    setResult(newRes);
+                    setFirstValue(newRes);
+                    document.getElementById("display").value = newRes;
+                }
+                else{
+                    alert('Debe ingresar un valor válido.');
+                }
+            }
+            catch(error){
+                console.log(error);
+            }
         }
         else if(operation === 4){
-            console.log(`Se realiza la division sobre ${firstValue} y ${secondValue}`);
+            try{
+                console.log(`Se realiza la división sobre ${firstValue} y ${document.getElementById("display").value}`);
+                let newRes = firstValue / parseFloat(document.getElementById("display").value);
+                if(!isNaN(newRes)){
+                    setResult(newRes);
+                    setFirstValue(newRes);
+                    document.getElementById("display").value = newRes;
+                }
+                else{
+                    alert('Debe ingresar un valor válido.');
+                }
+            }
+            catch(error){
+                console.log(error);
+            }
         }
     }
 
@@ -122,9 +152,9 @@ const Calculator = () =>{
             <div className="container">
                 <div className="row">
                     <ButtonGroup>
-                        <Button value={'ANS'} />
-                        <Button value={"±"} />
-                        <Button value={"AC"} />
+                        <ANSButton value={'ANS'} answer={result} />
+                        <PlusMinusButton value={"±"} active={negativeHandle} alternate={setNegativeHandle} />
+                        <ACButton value={"AC"} setFirst={setFirstValue} update={oper} setNegative={setNegativeHandle} />
                         <DeleteButton value={'←'}/>
                     </ButtonGroup>
                 </div>
@@ -133,7 +163,7 @@ const Calculator = () =>{
                         <Button value={7}/>
                         <Button value={8}/>
                         <Button value={9}/>
-                        <Button value={'÷'} />
+                        <OperButton value={'÷'} onTouch={execute} update={oper} />
                     </ButtonGroup>
                 </div>
                 <div className="row">
@@ -141,7 +171,7 @@ const Calculator = () =>{
                         <Button value={4}/>
                         <Button value={5}/>
                         <Button value={6}/>
-                        <Button value={'×'}/>
+                        <OperButton value={'×'} onTouch={execute} update={oper} />
                     </ButtonGroup>
                 </div>
                 <div className="row">
@@ -149,15 +179,15 @@ const Calculator = () =>{
                         <Button value={1}/>
                         <Button value={2}/>
                         <Button value={3}/>
-                        <Button value={'−'}/>
+                        <OperButton value={'−'} onTouch={execute} update={oper} />
                     </ButtonGroup>
                 </div>
                 <div className="row">
                     <ButtonGroup>
                         <Button value={0}/>
                         <DotButton value={"."} />
-                        <Button value={'='} />
-                        <AddButton value={'+'} onTouch={execute} update={oper}/>
+                        <OperButton value={'='} onTouch={execute} update={oper}/>
+                        <OperButton value={'+'} onTouch={execute} update={oper}/>
                     </ButtonGroup>
                 </div>
             </div>
