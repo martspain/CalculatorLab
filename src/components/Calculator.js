@@ -42,7 +42,13 @@ const Calculator = () =>{
                 if(!isNaN(newRes)){
                     setResult(newRes);
                     setFirstValue(newRes);
-                    document.getElementById("display").value = newRes;
+                    if(newRes < 999999999){
+                        document.getElementById("display").value = newRes;
+                    }
+                    else{
+                        document.getElementById("display").value = 'ERROR';
+                        alert('El resultado obtenido es mayor al límite de 999,999,999');
+                    }
                 }
                 else{
                     alert('Debe ingresar un valor válido.');
@@ -61,7 +67,13 @@ const Calculator = () =>{
                     setFirstValue(newRes);
                     if(newRes < 0){
                         if(negativeHandle){
-                            document.getElementById("display").value = newRes;
+                            if(newRes >= -999999999){
+                                document.getElementById("display").value = newRes;
+                            }
+                            else{
+                                document.getElementById("display").value = 'ERROR';
+                                alert('El resultado obtenido es menor que el límite de -999,999,999');
+                            }
                         }
                         else{
                             document.getElementById("display").value = 'ERROR';
@@ -86,7 +98,13 @@ const Calculator = () =>{
                 if(!isNaN(newRes)){
                     setResult(newRes);
                     setFirstValue(newRes);
-                    document.getElementById("display").value = newRes;
+                    if(newRes < 999999999){
+                        document.getElementById("display").value = newRes;
+                    }
+                    else{
+                        document.getElementById("display").value = 'ERROR';
+                        alert('El resultado obtenido es mayor al límite de 999,999,999');
+                    }
                 }
                 else{
                     alert('Debe ingresar un valor válido.');
@@ -103,7 +121,12 @@ const Calculator = () =>{
                 if(!isNaN(newRes)){
                     setResult(newRes);
                     setFirstValue(newRes);
-                    document.getElementById("display").value = newRes;
+                    if(newRes.toString().length > 9){
+                        document.getElementById("display").value = newRes.toString().slice(0, 9);
+                    }
+                    else{
+                        document.getElementById("display").value = newRes;
+                    }
                 }
                 else{
                     alert('Debe ingresar un valor válido.');

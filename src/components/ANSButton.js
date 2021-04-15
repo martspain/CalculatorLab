@@ -6,7 +6,13 @@ const ANSButton = (props) =>{
 
     const updateState = () =>{
         document.getElementById("display").value = "";
-        document.getElementById("display").value = props.answer;
+        if(props.answer < 999999999){
+            document.getElementById("display").value = props.answer;
+        }
+        else{
+            document.getElementById("display").value = 'ERROR';
+            alert('El resultado obtenido es mayor al límite de 999,999,999');
+        }
     }
 
     return(
