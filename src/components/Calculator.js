@@ -187,7 +187,7 @@ const Calculator = () =>{
             <div className="container">
                 <div className="row">
                     <ButtonGroup>
-                        <ANSButton value={'ANS'} answer={result} />
+                        <ANSButton value={'ANS'} answer={result} negative={negativeHandle}/>
                         <PlusMinusButton value={"±"} active={negativeHandle} alternate={setNegativeHandle} />
                         <ACButton value={"AC"} setFirst={setFirstValue} update={oper} setNegative={setNegativeHandle} />
                         <DeleteButton value={'←'}/>

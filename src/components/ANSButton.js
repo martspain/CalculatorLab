@@ -7,11 +7,28 @@ const ANSButton = (props) =>{
     const updateState = () =>{
         document.getElementById("display").value = "";
         if(props.answer < 999999999){
-            if(props.answer.toString().length <= 9){
-                document.getElementById("display").value = props.answer;
+            
+            if(props.answer >= 0){
+                if(props.answer.toString().length <= 9){
+                    document.getElementById("display").value = props.answer;
+                }
+                else{
+                    document.getElementById("display").value = props.answer.toString().slice(0, 9);
+                }
             }
             else{
-                document.getElementById("display").value = props.answer.toString().slice(0, 9);
+                if(props.negative){
+                    if(props.answer.toString().length <= 9){
+                        document.getElementById("display").value = props.answer;
+                    }
+                    else{
+                        document.getElementById("display").value = props.answer.toString().slice(0, 9);
+                    }
+                }
+                else{
+                    document.getElementById("display").value = 'ERROR';
+                    alert("El resultado es negativo y la opción para manejar números negativos está desactivada.");
+                }
             }
         }
         else{
