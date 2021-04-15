@@ -15,6 +15,7 @@ const Calculator = () =>{
     const [operation, setOperation] = useState(0);
     const [result, setResult] = useState(0);
     const [negativeHandle, setNegativeHandle] = useState(false);
+    const [typing, setTyping] = useState(false);
 
     const execute = () =>{
         if(operation === 0){
@@ -37,13 +38,14 @@ const Calculator = () =>{
         }
         else if(operation === 1){
             try{
-                console.log(`Se realiza la suma sobre ${firstValue} y ${document.getElementById("display").value}`);
+                //console.log(`Se realiza la suma sobre ${firstValue} y ${document.getElementById("display").value}`);
                 let newRes = firstValue + parseFloat(document.getElementById("display").value);
                 if(!isNaN(newRes)){
                     setResult(newRes);
                     setFirstValue(newRes);
                     if(newRes < 999999999){
                         document.getElementById("display").value = newRes;
+                        setTyping(true);
                     }
                     else{
                         document.getElementById("display").value = 'ERROR';
@@ -60,7 +62,7 @@ const Calculator = () =>{
         }
         else if(operation === 2){
             try{
-                console.log(`Se realiza la resta sobre ${firstValue} y ${document.getElementById("display").value}`);
+                //console.log(`Se realiza la resta sobre ${firstValue} y ${document.getElementById("display").value}`);
                 let newRes = firstValue - parseFloat(document.getElementById("display").value);
                 if(!isNaN(newRes)){
                     setResult(newRes);
@@ -69,6 +71,7 @@ const Calculator = () =>{
                         if(negativeHandle){
                             if(newRes >= -999999999){
                                 document.getElementById("display").value = newRes;
+                                setTyping(true);
                             }
                             else{
                                 document.getElementById("display").value = 'ERROR';
@@ -93,13 +96,20 @@ const Calculator = () =>{
         }
         else if(operation === 3){
             try{
-                console.log(`Se realiza la multiplicacion sobre ${firstValue} y ${document.getElementById("display").value}`);
+                //console.log(`Se realiza la multiplicacion sobre ${firstValue} y ${document.getElementById("display").value}`);
                 let newRes = firstValue * parseFloat(document.getElementById("display").value);
                 if(!isNaN(newRes)){
                     setResult(newRes);
                     setFirstValue(newRes);
                     if(newRes < 999999999){
-                        document.getElementById("display").value = newRes;
+                        if(newRes.toString().length <= 9){
+                            document.getElementById("display").value = newRes;
+                            setTyping(true);
+                        }
+                        else{
+                            document.getElementById("display").value = newRes.toString().slice(0,9);
+                            setTyping(true);
+                        }
                     }
                     else{
                         document.getElementById("display").value = 'ERROR';
@@ -116,16 +126,18 @@ const Calculator = () =>{
         }
         else if(operation === 4){
             try{
-                console.log(`Se realiza la división sobre ${firstValue} y ${document.getElementById("display").value}`);
+                //console.log(`Se realiza la división sobre ${firstValue} y ${document.getElementById("display").value}`);
                 let newRes = firstValue / parseFloat(document.getElementById("display").value);
                 if(!isNaN(newRes)){
                     setResult(newRes);
                     setFirstValue(newRes);
                     if(newRes.toString().length > 9){
                         document.getElementById("display").value = newRes.toString().slice(0, 9);
+                        setTyping(true);
                     }
                     else{
                         document.getElementById("display").value = newRes;
+                        setTyping(true);
                     }
                 }
                 else{
@@ -183,32 +195,32 @@ const Calculator = () =>{
                 </div>
                 <div className="row">
                     <ButtonGroup>
-                        <Button value={7}/>
-                        <Button value={8}/>
-                        <Button value={9}/>
+                        <Button value={7} flag={typing} setFlag={setTyping} />
+                        <Button value={8} flag={typing} setFlag={setTyping} />
+                        <Button value={9} flag={typing} setFlag={setTyping} />
                         <OperButton value={'÷'} onTouch={execute} update={oper} />
                     </ButtonGroup>
                 </div>
                 <div className="row">
                     <ButtonGroup>
-                        <Button value={4}/>
-                        <Button value={5}/>
-                        <Button value={6}/>
+                        <Button value={4} flag={typing} setFlag={setTyping} />
+                        <Button value={5} flag={typing} setFlag={setTyping} />
+                        <Button value={6} flag={typing} setFlag={setTyping} />
                         <OperButton value={'×'} onTouch={execute} update={oper} />
                     </ButtonGroup>
                 </div>
                 <div className="row">
                     <ButtonGroup>
-                        <Button value={1}/>
-                        <Button value={2}/>
-                        <Button value={3}/>
+                        <Button value={1} flag={typing} setFlag={setTyping} />
+                        <Button value={2} flag={typing} setFlag={setTyping} />
+                        <Button value={3} flag={typing} setFlag={setTyping} />
                         <OperButton value={'−'} onTouch={execute} update={oper} />
                     </ButtonGroup>
                 </div>
                 <div className="row">
                     <ButtonGroup>
-                        <Button value={0}/>
-                        <DotButton value={"."} />
+                        <Button value={0} flag={typing} setFlag={setTyping}/>
+                        <DotButton value={"."} flag={typing} setFlag={setTyping}/>
                         <OperButton value={'='} onTouch={execute} update={oper}/>
                         <OperButton value={'+'} onTouch={execute} update={oper}/>
                     </ButtonGroup>

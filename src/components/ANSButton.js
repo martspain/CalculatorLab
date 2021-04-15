@@ -7,7 +7,12 @@ const ANSButton = (props) =>{
     const updateState = () =>{
         document.getElementById("display").value = "";
         if(props.answer < 999999999){
-            document.getElementById("display").value = props.answer;
+            if(props.answer.toString().length <= 9){
+                document.getElementById("display").value = props.answer;
+            }
+            else{
+                document.getElementById("display").value = props.answer.toString().slice(0, 9);
+            }
         }
         else{
             document.getElementById("display").value = 'ERROR';

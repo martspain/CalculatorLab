@@ -8,6 +8,11 @@ const DotButton = (props) =>{
     const checkDot = () =>{
         let screen = document.getElementById("display");
         
+        if(props.flag){
+            screen.value = "";
+            props.setFlag(false);
+        }
+
         if(screen.value.indexOf(".") < 0){
             screen.value = screen.value + character;
         }

@@ -8,6 +8,11 @@ const Button = (props) => {
     const getValue = () =>{
         let screen = document.getElementById("display");
         
+        if(props.flag){
+            screen.value = "";
+            props.setFlag(false);
+        }
+
         if(screen.value.length < 9){
             screen.value = screen.value + character;
         }
