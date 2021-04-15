@@ -1,11 +1,7 @@
 import React from 'react';
 
-const Display = () => {
-    return(
-        
-        <input id="display" size="lg" className="display" maxLength="9" readOnly></input>
-        
-    )
-}
+const Display = () => (
+  <input id="display" size="lg" className="display" maxLength="9" readOnly />
+);
 
 export default Display;
