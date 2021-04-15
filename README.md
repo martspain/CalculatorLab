@@ -11,3 +11,4 @@ Esta calculadora toma en cuenta las siguientes reglas:
 5. El punto decimal esta implementado.
 6. La opción +/- permite alternar los signos de los números y al mismo tiempo permite trabajar con números negativos si se deja activada.
 7. Es compatible con eslint de airbnb.
+8. Tiene implementadas la funciones de Backspace, AC, y ANS.
