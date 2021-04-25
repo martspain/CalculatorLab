@@ -33,6 +33,7 @@
         "react/jsx-filename-extension":"off",
         "no-restricted-globals": "off",
         "brace-style": "off",
-        "no-global-assign": "off"
+        "no-global-assign": "off",
+        "import/no-extraneous-dependencies": "off"
     }
 }

@@ -70,6 +70,7 @@ const Calculator = () => {
             }
           } else {
             document.getElementById('display').value = newRes;
+            setTyping(true);
           }
         } else {
           alert('Debe ingresar un valor válido.');
@@ -164,7 +165,10 @@ const Calculator = () => {
     // Division
     else if (key === '÷') {
       operNumber = 4;
-    } else if (key === '%') {
+    }
+
+    // Operacion modulo
+    else if (key === '%') {
       operNumber = 5;
     }
 
@@ -172,7 +176,7 @@ const Calculator = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container" data-testid="calculadoraTest">
       <div className="container">
         <div className="row justify-content-center my-5">
           <Display />
